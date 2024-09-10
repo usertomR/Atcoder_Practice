@@ -4,12 +4,12 @@ ansArr = []
 
 def suuretu(stateArr, digit):
   for r in range(1, R[digit - 1] + 1):
-    otherArr = stateArr[:]
-    otherArr.append(r)
+    stateArr.append(r)
     if digit == N:
-      ansArr.append(otherArr)
+      ansArr.append(stateArr[:])
     else:
-      suuretu(otherArr, digit + 1)
+      suuretu(stateArr, digit + 1)
+    stateArr.pop()
 
 suuretu([], 1)
 
