@@ -6,7 +6,7 @@ if N == 1:
 elif N == 2:
   print(A[0] + 2 * A[1])
 else:
-  kisu_max = A[0]
+  kisu_max = max(A[0], A[1])
   gusu_max = A[0] + 2 * A[1]
   for i in range(2, N):
     tmp_g = gusu_max
