@@ -8,7 +8,7 @@ S = [0] * min(H, W)
 def batu_or_not(center_mass, size):
   h, w = center_mass
   
-  if h + size <= H - 1 and 0 <= h - size and w + size <= W - 1 and 0 <= w - size:
+  if C[h][w] == "#" and h + size <= H - 1 and 0 <= h - size and w + size <= W - 1 and 0 <= w - size:
     if C[h + size][w + size] == "#" and C[h + size][w - size] == "#" and C[h - size][w + size] == "#" and C[h - size][w - size] == "#":
       return True
     else:
