@@ -22,11 +22,12 @@ for i in range(N):
     R_min_Arr.append(min(R_min_Arr[i - 1], R * (i + 1) - a_ruiseki))
 
 
-print(L_min_Arr, R_min_Arr)
+#print(L_min_Arr, R_min_Arr)
 
 sum_A = sum(A)
 ans = min(sum_A + R_min_Arr[N - 1], sum_A)
-for l_idx in range(N):
-  ans = min(ans, sum_A + L_min_Arr[l_idx] + R_min_Arr[N - 1 - l_idx])
+for l_idx in range(N - 1):
+  ans = min(ans, sum_A + L_min_Arr[l_idx] + R_min_Arr[N - 2 - l_idx])
+ans = min(ans, sum_A + L_min_Arr[N - 1])
 
 print(ans)
