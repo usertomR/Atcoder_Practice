@@ -1,31 +1,32 @@
-N, K, D = map(int, input().split())
+N, L, R = map(int, input().split())
 A = list(map(int, input().split()))
-# dp[n][k][d]
-dp = [[[-1] * D for _ in range(N)] for _ in range(N)]
-dp[0][0][A[0] % D] = A[0] 
 
-for n in range(1, N):
-  # n + 1番目の項を入れる・入れない
-  a_mod = A[n] % D
-  # aを入れない場合
-  for k in range(n):
-    for d in range(D):
-      dp[n][k][d] = dp[n - 1][k][d]
+L_min_Arr = []
+R_min_Arr = []
 
-  # aを入れて最大値を更新できるなら更新
-  # 合計k+1個取り入れる
-  for k in range(n + 1):
-    if k == 0:
-      dp[n][k][a_mod] = max(A[n], dp[n][k][a_mod])
-      continue
-    for d in range(D):
-      orig = dp[n - 1][k - 1][d]
-      if orig == - 1:
-        continue
-      else:
-        dp[n][k][(orig % D + a_mod) % D] = max(dp[n][k][(orig % D + a_mod) % D], dp[n - 1][k - 1][d] + A[n])
-
-print(dp[N - 1][K - 1][0])
+a_ruiseki = 0
+for i in range(N):
+  a_ruiseki += A[i]
+  if i == 0:
+    L_min_Arr.append(L *(i + 1) - a_ruiseki)
+  else:
+    L_min_Arr.append(min(L_min_Arr[i - 1], L *(i + 1) - a_ruiseki))
 
 
-  
+a_ruiseki = 0
+for i in range(N):
+  a_ruiseki += A[N - 1 - i]
+  if i == 0:
+    R_min_Arr.append(R * (i + 1) - a_ruiseki)
+  else:
+    R_min_Arr.append(min(R_min_Arr[i - 1], R * (i + 1) - a_ruiseki))
+
+
+print(L_min_Arr, R_min_Arr)
+
+sum_A = sum(A)
+ans = min(sum_A + R_min_Arr[N - 1], sum_A)
+for l_idx in range(N):
+  ans = min(ans, sum_A + L_min_Arr[l_idx] + R_min_Arr[N - 1 - l_idx])
+
+print(ans)
